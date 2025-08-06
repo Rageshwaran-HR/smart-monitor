@@ -1,0 +1,18 @@
+nohup: ignoring input
+192.168.137.134 - - [03/Aug/2025 13:12:30] "GET / HTTP/1.1" 200 -
+192.168.137.134 - - [03/Aug/2025 13:12:30] code 404, message File not found
+192.168.137.134 - - [03/Aug/2025 13:12:30] "GET /favicon.ico HTTP/1.1" 404 -
+192.168.137.134 - - [03/Aug/2025 14:38:19] "GET / HTTP/1.1" 304 -
+line 1296, in <module>
+    test(
+  File "/usr/lib/python3.9/http/server.py", line 1251, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+  File "/usr/lib/python3.9/socketserver.py", line 452, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.9/http/server.py", line 1294, in server_bind
+    return super().server_bind()
+  File "/usr/lib/python3.9/http/server.py", line 138, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.9/socketserver.py", line 466, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use

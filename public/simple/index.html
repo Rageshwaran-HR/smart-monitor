@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Monitor - Complete</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        .info-box { background: #e8f4f8; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #005a8a; }
+        .status { font-weight: bold; color: #2d5a27; }
+        .wallpaper { margin: 5px 0; padding: 5px; background: #f9f9f9; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Smart Monitor - Complete System</h1>
+        
+        <div class="info-box">
+            <h2>✅ System Status</h2>
+            <p><strong>Status:</strong> <span class="status">Full API Connected</span></p>
+            <p><strong>API Server:</strong> http://192.168.137.180:5000</p>
+            <p><strong>Last Updated:</strong> <span id="timestamp"></span></p>
+        </div>
+
+        <div class="info-box">
+            <h2>🔧 Available Actions</h2>
+            <button onclick="getSystemInfo()">Get Real System Info</button>
+            <button onclick="testConnection()">Test Pi Connection</button>
+            <button onclick="getWallpapers()">Load Wallpapers</button>
+            <button onclick="refreshPage()">Refresh</button>
+        </div>
+
+        <div class="info-box">
+            <h2>📊 Live System Information</h2>
+            <div id="systemInfo">
+                <p>Click "Get Real System Info" to load live data...</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2>🎨 Available Wallpapers</h2>
+            <div id="wallpaperInfo">
+                <p>Click "Load Wallpapers" to see available videos...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+
+        async function getSystemInfo() {
+            try {
+                const response = await fetch('http://192.168.137.180:5000/api/system/info');
+                const data = await response.json();
+                
+                document.getElementById('systemInfo').innerHTML = `
+                    <p><strong>Uptime:</strong> ${data.system.uptime}</p>
+                    <p><strong>Temperature:</strong> ${data.system.temperature}°C</p>
+                    <p><strong>Memory:</strong> ${data.system.memoryUsage}% (${data.system.freeMemory} free of ${data.system.memory})</p>
+                    <p><strong>CPU:</strong> ${data.system.cpu}</p>
+                    <p><strong>Storage:</strong> ${data.system.storageUsage}% used (${data.system.storage} total)</p>
+                    <p><strong>Architecture:</strong> ${data.system.arch}</p>
+                    <p><strong>Audio:</strong> ${data.system.audio}</p>
+                    <p><strong>Bluetooth:</strong> ${data.system.bluetooth}</p>
+                `;
+            } catch (error) {
+                document.getElementById('systemInfo').innerHTML = '<p>❌ Error loading system info. Make sure API server is running.</p>';
+            }
+        }
+
+        async function testConnection() {
+            try {
+                const response = await fetch('http://192.168.137.180:5000/api/pi/status');
+                const data = await response.json();
+                alert(`✅ Connection test passed! Pi Status: ${data.connected ? 'Connected' : 'Disconnected'}`);
+            } catch (error) {
+                alert('❌ Connection test failed! API server may not be running.');
+            }
+        }
+
+        async function getWallpapers() {
+            try {
+                const response = await fetch('http://192.168.137.180:5000/api/wallpapers');
+                const data = await response.json();
+                
+                let html = `<p><strong>Total:</strong> ${data.totalCount} videos (${data.totalSize})</p>`;
+                data.wallpapers.forEach(w => {
+                    html += `<div class="wallpaper">
+                        <strong>${w.displayName}</strong> - ${w.category} (${w.size})
+                        <br><small>URL: ${w.url}</small>
+                    </div>`;
+                });
+                
+                document.getElementById('wallpaperInfo').innerHTML = html;
+            } catch (error) {
+                document.getElementById('wallpaperInfo').innerHTML = '<p>❌ Error loading wallpapers. Make sure API server is running.</p>';
+            }
+        }
+
+        function refreshPage() {
+            location.reload();
+        }
+
+        setInterval(() => {
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        }, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Disable ESLint during builds
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
+  // Disable TypeScript type checking during builds
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  
+  // Basic settings
+  poweredByHeader: false,
+  reactStrictMode: false,
+  compress: false,
+  generateEtags: false,
+  
+  // Output settings for better compatibility
+  output: 'standalone',
+  
+  // Webpack configuration for compatibility
+  webpack: (config, { dev, isServer }) => {
+    // Reduce memory usage
+    if (dev) {
+      config.cache = false;
+    }
+    
+    // Handle any potential module resolution issues
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+    };
+    
+    return config;
+  },
+};
+
+module.exports = nextConfig;
