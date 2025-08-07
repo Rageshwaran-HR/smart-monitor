@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000 --hostname 0.0.0.0",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^3.0.1",
+    "axios": "^1.11.0",
     "framer-motion": "^12.23.12",
+    "googleapis": "^155.0.0",
     "next": "15.4.5",
+    "next-auth": "^4.24.5",
     "path-to-regexp": "^8.2.0",
     "react": "19.1.0",
     "react-dom": "19.1.0"

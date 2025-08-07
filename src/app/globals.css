@@ -20,6 +20,151 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Custom weather widget animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes rain {
+  0% {
+    transform: translateY(-2px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+@keyframes snow {
+  0% {
+    transform: translateY(-2px) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1px);
+  }
+  75% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes mist {
+  0%, 100% {
+    transform: translateX(0px);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(4px);
+    opacity: 0.8;
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-rain {
+  animation: rain 1s ease-in-out infinite;
+}
+
+.animate-rain-delay-1 {
+  animation: rain 1s ease-in-out infinite;
+  animation-delay: 0.3s;
+}
+
+.animate-rain-delay-2 {
+  animation: rain 1s ease-in-out infinite;
+  animation-delay: 0.6s;
+}
+
+.animate-snow {
+  animation: snow 2s ease-in-out infinite;
+}
+
+.animate-snow-delay-1 {
+  animation: snow 2s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-snow-delay-2 {
+  animation: snow 2s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-flash {
+  animation: flash 1s ease-in-out infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+.animate-mist {
+  animation: mist 4s ease-in-out infinite;
+}
+
+.animate-mist-delay {
+  animation: mist 4s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
 /* Custom styles for music player */
 .slider {
   background: linear-gradient(to right, #10b981, #3b82f6);
@@ -140,4 +285,13 @@ body {
 
 .party-wave {
   animation: party-wave 3s linear infinite;
+}
+
+/* Hide calendar branding */
+.cl-branding {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
